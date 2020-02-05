@@ -42,6 +42,15 @@ public class CliTest{
         String expected = "Please enter 2 arguments maximum! Formula: java Crawler.java [Category] [Amount]";
         assertEquals(actual, expected);
     }
+    
+    @Test
+    public void testCli_for_correct_output_with_given_invalid_arguments_input(){
+        Cli cli = new Cli();
+        String[] args = new String[] {"zututut", "0"};
+        String actual = cli.handleInput(args);
+        String expected = "Please enter 2 arguments maximum! Formula: java Crawler.java [Category] [Amount]";
+        assertEquals(actual, expected);
+    }
 
     private void assertEquals(String actual, String expected) {
     }
