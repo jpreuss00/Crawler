@@ -1,7 +1,8 @@
-package src.main.java.com.github.jpreuss00.crawler;
+package src.main.java.crawler;
 
-import src.main.java.com.github.jpreuss00.crawler.domain.*;
-import src.main.java.com.github.jpreuss00.crawler.infrastructure.*;
+import src.main.java.crawler.domain.ArticleUsecase;
+import src.main.java.crawler.infrastructure.Cli;
+import src.main.java.crawler.infrastructure.RssfeedReader;
 
 public class Crawler {
 

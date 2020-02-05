@@ -30,5 +30,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = "src.main.java.com.github.jpreuss00.crawler.Crawler"
+    mainClassName = "src.main.java.crawler.Crawler"
 }

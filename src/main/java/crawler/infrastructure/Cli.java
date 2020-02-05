@@ -1,8 +1,9 @@
-package src.main.java.com.github.jpreuss00.crawler.infrastructure;
+package src.main.java.crawler.infrastructure;
 
 import java.util.List;
 
-import src.main.java.com.github.jpreuss00.crawler.domain.*;
+import src.main.java.crawler.domain.Article;
+import src.main.java.crawler.domain.ArticleUsecase;
 
 public class Cli {
 

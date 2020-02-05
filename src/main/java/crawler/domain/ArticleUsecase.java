@@ -1,8 +1,8 @@
-package src.main.java.com.github.jpreuss00.crawler.domain;
+package src.main.java.crawler.domain;
 
-import java.util.*;
+import java.util.List;
 
-import src.main.java.com.github.jpreuss00.crawler.infrastructure.RssfeedReader;
+import src.main.java.crawler.infrastructure.RssfeedReader;
 
 public class ArticleUsecase {
 
