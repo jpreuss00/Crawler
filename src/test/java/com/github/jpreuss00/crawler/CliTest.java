@@ -1,12 +1,12 @@
 package src.test.java.com.github.jpreuss00.crawler;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
-
 import src.main.java.com.github.jpreuss00.crawler.infrastructure.Cli;
 import src.main.java.com.github.jpreuss00.crawler.infrastructure.RssfeedReader;
 import src.main.java.com.github.jpreuss00.crawler.domain.Article;
-import src.main.java.com.github.jpreuss00.crawler.domain.ArticleUsecase;;
+import src.main.java.com.github.jpreuss00.crawler.domain.ArticleUsecase;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class CliTest{
 
@@ -17,7 +17,7 @@ public class CliTest{
         Cli cli = new Cli(articleUsecase);
         String[] args = new String[] {"Politik", "1"};
         String actual = cli.handleInput(args);
-        String expected = "Searching for articles with the category: Politik!1: Ramelow scheitert auch im zweiten Wahlgang zum Ministerpräsidenten";
+        String expected = "Searching for articles with the category: Politik!";
         assertEquals(actual, expected);
     }
 
