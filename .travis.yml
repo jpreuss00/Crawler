@@ -2,10 +2,7 @@ language: java
 services:
 - docker
 
-before_install:
-- gem install travis
-script:
-- docker build -t jpreuss00/crawler .
+
 
 script:
   - travis login --org --github-token "$GITHUB_TOKEN"
