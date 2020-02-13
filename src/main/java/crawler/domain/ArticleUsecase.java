@@ -2,13 +2,13 @@ package src.main.java.crawler.domain;
 
 import java.util.List;
 
-import src.main.java.crawler.infrastructure.RssfeedReader;
+import src.main.java.crawler.infrastructure.IRssReader;
 
 public class ArticleUsecase {
 
-    final private RssfeedReader reader;
+    final private IRssReader reader;
 
-    public ArticleUsecase(RssfeedReader reader){
+    public ArticleUsecase(IRssReader reader){
         this.reader = reader;
     }
 
@@ -18,6 +18,6 @@ public class ArticleUsecase {
 
     public List<Article> getArticlesOfCategory(String category, int maxAmount){
         String urlAdress = reader.urlBuilder(category);
-        return reader.readRssfeed(urlAdress, maxAmount);
+        return reader.fetchArticles(urlAdress, maxAmount);
     }
 }

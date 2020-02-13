@@ -32,3 +32,19 @@ application {
     // Define the main class for the application.
     mainClassName = "src.main.java.crawler.Crawler"
 }
+
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "src.main.java.crawler.Crawler"
+    }
+    from(configurations.runtime.get().map {if (it.isDirectory) it else zipTree(it)})
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+tasks.withType<JavaCompile> {
+    options.compilerArgs.addAll(arrayOf("--release", "8"))
+}

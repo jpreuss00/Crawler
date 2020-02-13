@@ -19,9 +19,9 @@ public class Cli {
 
     public String handleInput(String args[]) {
         if (args.length == 0) {
-            return "Please enter valid arguments! Formula: java Crawler.java [Category] [Amount]";
+            return "Please enter valid arguments! Formula: command [Category] [Amount]";
         } else if (args.length > 2) {
-            return "Please enter 2 arguments maximum! Formula: java Crawler.java [Category] [Amount]";
+            return "Please enter 2 arguments maximum! Formula: command [Category] [Amount]";
         } else {
             String category = args[0];
             int maxAmount = articleAmount(args);

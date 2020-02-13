@@ -10,9 +10,9 @@ import java.util.List;
 
 import src.main.java.crawler.domain.Article;
 
-public class RssfeedReader {
+public class RssfeedReader implements IRssReader {
 
-    public List<Article> readRssfeed(String urlAdress, int maxAmount) {
+    public List<Article> fetchArticles(final String urlAdress, int maxAmount) {
         try {
             List<Article> articles = new ArrayList<Article>();
             URL rssUrl = new URL(urlAdress);

@@ -19,7 +19,7 @@ public class CliTest{
         String[] args = new String[] {"Politik", "1"};
         String actual = cli.handleInput(args);
         String expected = "Searching for articles with the category: Politik!";
-        assertThat(actual, containsString(expected));
+        assertEquals(actual, expected);
     }
 
     @Test
