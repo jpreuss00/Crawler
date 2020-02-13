@@ -9,7 +9,7 @@ script:
 - docker build -t jpreuss00/crawler .
 
 script:
-  - --github-token $GITHUB_TOKEN
+  - --github-token GITHUB_TOKEN
   - travis login --org
   - travis env set DOCKER_USERNAME myusername
   - travis env set DOCKER_PASSWORD secretsecret
