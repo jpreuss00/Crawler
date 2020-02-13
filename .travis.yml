@@ -4,11 +4,14 @@ services:
 
 before_install:
 - gem install travis
-- travis login --github-token $GITHUB_TOKEN
-- travis env set DOCKER_USERNAME myusername
-- travis env set DOCKER_PASSWORD secretsecret
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
+- gradle test
+script:
+- docker build -t jpreuss00/crawler .
 
 script:
+  - travis env set GITHUB_TOKEN GITHUB_TOKEN
+  - travis env set DOCKER_USERNAME myusername
+  - travis env set DOCKER_PASSWORD secretsecret
+  - travis login --github-token $GITHUB_TOKEN
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push jpreuss00/crawler:latest
