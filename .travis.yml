@@ -1,11 +1,24 @@
 language: java
 services:
-  - docker
+- docker
+
 before_install:
 - docker build -t jpreuss00/crawler .
-- docker run -d -p 127.0.0.1:80:4567 jpreuss00/crawler /bin/sh -c "cd /root/crawler; bundle exec foreman start;"
+- docker run -d -p 127.0.0.1:80:4567 jpreuss00/crawler /bin/sh -c "cd /root/crawler;
+  bundle exec foreman start;"
 - docker ps -a
 - docker run jpreuss00/crawler /bin/sh -c "cd /root/crawler; bundle exec rake test"
-
 script:
 - bundle exec rake test
+
+env:
+  global:
+  - secure: bzH5P6r4od+qE7OmK66xJ1LCdmnuX5/fgsevcf9Tt0xbKHgPCPiIn2sIRlT4haDCkWoydxxC4CLaPNtwom3Hy0t5AvaGifvQYIYteKi0oLOMXAd4VAJXb2PevO8nY3JJH435Rlj7BAOtwWHWZhMAnyYUgsi0eew+jvwm9qhtXEJr3qxSha8lbK0/g5JSFpj2o7khERjBwYzvfbVibnBkbSxbazlG+BW6BdI2XhEmm/UO3viV0whDJRK5F9Zm7oCWrVXqPQtsJMbIIsSquUuJwSqzBOH0zV7wMqtq9v9rSR6ZUyhJ2z0w4PuQ61/ix7lQE7Lvx8aW3w8wSe47qE5RHCDe0es0Yuw/qyiXJrefMXUdaBF+x72PpztBGF1viNkcGLEH6zZFFi5JrpuMJh9K/MwzALQ2jaJ36PQ9y1sZvLBIxqWdagVdg7Z+ykn7VlXZRwrXhBCR0Wd0ptgvFW5nsMeIkL5iVf43yirseNQkBuDb2mKED8OclnhGquedhJNFYXvVIjjMAT6kJUES1KQkPTdH3cH5gghu3xRfVbp5+u4iEnW6vR6ybS4gL5+K2qbepypraeLZoXD5ErAsRMw4tUT/+3fEHF9H06l4QDssF5EAzUMCHsJ9cEK2P6/i1c24aJ+kN3SlHbFdb4JU+iQ96vaZIS1A7H3P3/giOH5rwWs=
+  - secure: cFA/4t4nEO8mzwEtmzDDPUOPF0DshrgNySlOKkI+2MbO02ZX4Q11+ELJMxAJz1jKxYl8DEtNJit3fDLjLXBFTu629VkndfUeraJqjMai2CdYzOFACdxKgKwNrCrv/7b7NlBnVBYY5VVhG2wRPcVTDHl5pr5fZ4wo7VPLqMwIAQ6XUo7Qu2jkaYdYMyPO0gP82jYtH8fFE6ueuvfTK2g2m7GSMsP+tVNAbH3RKhgwAL+2hwZMp2AKi+ZrwUPZxdGZMZuBpnUm5yu6f2uYGiCeNFHSbJGBbj1+NOieCT4yBGhmw0VguiB8QNmMYYM0q1xMl6nTknmrrmpEcaD2hBPWpJV9adHsXo4dLR4oZtD3iaTJEp8wINwzSrGFdZwP5Ke5QPCG98lJYq+3vXUaz6qQXFHr6OAL5We/0+n1gviQ95zIaW4BWNNQGu+q26wsLfKqvxchRHy5RUgKrVrHTustDZzzLIBrnbgK0YHRTwtEnA2R9+LnejWdTmPA+yDpxeL+YpA2jQLdG8FKLnjcpI29F0CJM6Xoo2wRwRC0noNXk2fg7k6tZRJJa2mj8MEyOwpnQmqcK/sfjMfT5D0M0YYIMnzFnTHIKyF6kRAwN6IlXoSUPrQx7DHd88cf2CkcnjVr2jwPb1lhqXWmj3AFjpfx8o0nO6kD+6CJhfkRdHno8v4=
+  - secure: rz+6eZemg2KxC9OfPOzJTZYZv8VjKWWryDtCyUPu//tJIB9gBc/EAxnrQ/QzrVECYdW8rgZ68Fd8GawFp3K0WCjtlvCKIS/hKg8MVZ575jqCJLd6i94SPBhOaE7Glp1BTTVw3s4xdPxQg+HlRopMslaSKvz1zvAI/FOOR3jUdp/Qanb5D8GkMDFfcaR3d9cAPdW9ZR/Q+NzaHVQlwXpy2zlDnPgWqve9wyRC6swBKFlga77vsyEDMMAFsk+HkOs7D5XDB4oGJzgFiRUzM/smAQJcstXw/xxFauELk00deFDuYPKScTQl0QVqIy6AKQbL5FZNOyQcOeC8EYxUDEK+EkGaKgysGYkAMcymwoNc3Xino+fXqLMTQD0CpiwH9dvXq/4PRsdFEFEW0Z+0xTSOj65M8yTprphAtMvhHqnUrkP7FUSVdcdhofUbsvZCB6BI/0X51obyG/KduKdyWFOuYOQmZRqP8FdW/DsR5HQFuHVv5h/5KL5QHTy5TLUXRPYR3DPbup6WRhr8yUzIqrNcoGZUs7Nsbakil6kCrz2p/cuJXXIVVqrs9N2LS7v1WffGxGUAGPPtcwL610rfZGgsoiRd/ESN2pZtJNLGmLGZzas6DVzJlgFrrzhLRh8lROsjAb+oqlb92YvqQac6FS5lcpUhCcx01kr5QldmoyU+E3s=
+
+script:
+  - travis env set DOCKER_USERNAME myusername
+  - travis env set DOCKER_PASSWORD secretsecret
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push jpreuss00/crawler:latest
