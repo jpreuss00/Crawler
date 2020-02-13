@@ -3,8 +3,8 @@ services:
 - docker
 
 before_install:
-- gradle test
 - gem install travis
+- gradle test
 script:
 - docker build -t jpreuss00/crawler .
 
