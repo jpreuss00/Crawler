@@ -2,6 +2,8 @@ language: java
 services:
 - docker
 
+before_install:
+- gem install travis
 
 
 script:
