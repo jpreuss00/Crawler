@@ -4,10 +4,9 @@ services:
 
 before_install:
 - gem install travis
-- travis login
 - travis env set DOCKER_USERNAME myusername
 - travis env set DOCKER_PASSWORD secretsecret
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- echo "$DOCKER_PASSWORD" | travis login -u "$DOCKER_USERNAME" --password-stdin
 
 script:
   - docker push jpreuss00/crawler:latest
