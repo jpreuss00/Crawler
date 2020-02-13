@@ -4,10 +4,9 @@ services:
 
 before_install:
 - gem install travis
-- travis login --pro --github-token ${GITHUB_TOKEN}
-- travis env set DOCKER_USERNAME myusername
-- travis env set DOCKER_PASSWORD secretsecret
-
+- travis login
+- travis env set Username myusername
+- travis env set Password secretsecret
 
 script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
