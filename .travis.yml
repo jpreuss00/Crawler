@@ -4,7 +4,7 @@ services:
 
 before_install:
 - gradle test
-- brew install travis
+- gem install travis
 script:
 - docker build -t jpreuss00/crawler .
 
