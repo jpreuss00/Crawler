@@ -3,7 +3,7 @@ services:
 - docker
 
 before_install:
-- gradle run
+- gradle test
 script:
 - docker build -t jpreuss00/crawler .
 
