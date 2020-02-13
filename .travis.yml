@@ -6,7 +6,9 @@ before_install:
 - gem install travis
 - travis login
 - travis env set Username myusername
+- echo Username
 - travis env set Password secretsecret
+- echo Password
 
 script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
