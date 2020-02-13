@@ -1,4 +1,5 @@
-FROM java:8
+FROM openjdk:13-alpine
 WORKDIR /
-ADD Crawler.jar Crawler.jar
-CMD ["java",  "-jar", "Crawler.jar"]
+COPY entrypoint.sh entrypoint.sh
+ADD build/libs/crawler.jar Crawler.jar
+ENTRYPOINT ["./entrypoint.sh"]
