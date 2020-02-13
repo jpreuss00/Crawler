@@ -4,7 +4,7 @@ services:
 
 before_install:
 - gem install travis
-- travis login --org
+- travis login --org --auto
 - travis env set DOCKER_USERNAME myusername
 - travis env set DOCKER_PASSWORD secretsecret
 
