@@ -27,9 +27,8 @@ dependencies {
     // Use JUnit test framework
     testImplementation("junit:junit:4.12")
 
-    compile("com.oracle.ojdbc:ojdbc8:19.3.0.0")  
+    implementation("com.oracle.ojdbc:ojdbc8:19.3.0.0")  
 }
-
 
 application {
     // Define the main class for the application.
