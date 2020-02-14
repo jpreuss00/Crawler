@@ -26,7 +26,11 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation("junit:junit:4.12")
+
+    compile("com.oracle.ojdbc:ojdbc8:19.3.0.0")  
 }
+
+mvn install:install-file -Dfile="\ojdbc8.jar" -DgroupId="com.oracle" -DartifactId="ojdbc8" -Dversion="19.3.0.0" -Dpackaging="jar" -DgeneratePom="true"
 
 application {
     // Define the main class for the application.
