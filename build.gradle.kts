@@ -5,7 +5,7 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * User Manual available at https://docs.gradle.org/6.1.1/userguide/tutorial_java_projects.html
  */
-
+import org.gradle.jvm.tasks.Jar
 plugins {
     // Apply the java plugin to add support for Java
     java
@@ -17,7 +17,7 @@ plugins {
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -26,20 +26,13 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation("junit:junit:4.12")
-
-    implementation("com.oracle.ojdbc:ojdbc8:19.3.0.0")  
+    
+    implementation("org.postgresql:postgresql:42.2.10")
 }
 
 application {
     // Define the main class for the application.
     mainClassName = "src.main.java.crawler.Crawler"
-}
-
-tasks.withType<Jar> {
-    manifest {
-        attributes["Main-Class"] = "src.main.java.crawler.Crawler"
-    }
-    from(configurations.runtime.get().map {if (it.isDirectory) it else zipTree(it)})
 }
 
 java {
@@ -49,4 +42,28 @@ java {
 
 tasks.withType<JavaCompile> {
     options.compilerArgs.addAll(arrayOf("--release", "8"))
+}
+
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "src.main.java.crawler.Crawler"
+    }
+}
+
+
+val fatJar = task("fatJar", type = Jar::class) {
+    baseName = "${project.name}-fat"
+    // manifest Main-Class attribute is optional.
+    // (Used only to provide default main class for executable jar)
+    manifest {
+        attributes["Main-Class"] = "src.main.java.crawler.Crawler"
+    }
+    from(configurations.runtime.get().map({ if (it.isDirectory) it else zipTree(it) }))
+    with(tasks["jar"] as CopySpec)
+}
+
+tasks {
+    "build" {
+        dependsOn(fatJar)
+    }
 }

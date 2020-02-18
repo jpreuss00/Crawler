@@ -1,3 +1,3 @@
 #!/bin/sh
 
-java -jar Crawler.jar "$@"
+java -jar Crawler.jar

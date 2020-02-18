@@ -18,6 +18,6 @@ public class ArticleUsecase {
 
     public List<Article> getArticlesOfCategory(String category, int maxAmount){
         String urlAdress = reader.urlBuilder(category);
-        return reader.fetchArticles(urlAdress, maxAmount);
+        return reader.fetchArticles(urlAdress, 30, category);
     }
 }

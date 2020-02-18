@@ -1,52 +1,58 @@
 package src.main.java.crawler.infrastructure;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import src.main.java.crawler.domain.Article;
 
 public class RssfeedReader implements IRssReader {
 
-    public List<Article> fetchArticles(final String urlAdress, int maxAmount) {
+    public List<Article> fetchArticles(final String urlAdress, int maxAmount, String category) {
+
         try {
             List<Article> articles = new ArrayList<Article>();
-            URL rssUrl = new URL(urlAdress);
-            BufferedReader inputStreamRss = new BufferedReader(new InputStreamReader(rssUrl.openStream()));
-            String line;
-            int counter = 0;
-            while ((line = inputStreamRss.readLine()) != null) {
-                if (line.contains("<title>")) {
-                    int firstPos = line.indexOf("<title>");
-                    String temp = line.substring(firstPos);
-                    temp = temp.replace("<title>", "");
-                    int lastPos = temp.indexOf("</title>");
-                    temp = temp.substring(0, lastPos);
-                    if (counter > 1) {
-                        Article article = new Article(temp);
-                        articles.add(article);
-                    }
-                    counter++;
-                    if (counter - 2 == maxAmount) {
-                        break;
-                    }
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(urlAdress);
+            doc.getDocumentElement().normalize();
+
+            for (int i = 0; i < maxAmount; i++) {
+
+                int guid = 0;
+
+                final Node nodeTitle = doc.getElementsByTagName("title").item(i + 2);
+                String title = nodeTitle.getTextContent();
+                final Node nodeGuid = doc.getElementsByTagName("guid").item(i);
+                String guidAsString = nodeGuid.getTextContent();
+                if (!guidAsString.equals(null)) {
+                    guid = Integer.parseInt(guidAsString);
+                } else {
+                    guid = 0;
+                }
+                final Node nodePubDate = doc.getElementsByTagName("pubDate").item(i + 1);
+                String pubDate = nodePubDate.getTextContent();
+                final Node nodeDescription = doc.getElementsByTagName("description").item(i + 1);
+                String description = nodeDescription.getTextContent();
+
+                if (guid != 0) {
+                    Article article = new Article(title, category, guid, pubDate, description);
+                    articles.add(article);
                 }
             }
-            inputStreamRss.close();
             return articles;
-        } catch (MalformedURLException ue) {
-            System.out.println("Malformed URL");
-        } catch (IOException ioe) {
-            System.out.println("Something went wrong reading the contents");
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return new ArrayList<Article>();
     }
 
     public String urlBuilder(String categoryInput) {
-        return "https://www.welt.de/feeds/section/" + categoryInput + ".rss";
+        return "https://www.welt.de/feeds/" + categoryInput + ".rss";
     }
 }
