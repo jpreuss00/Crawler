@@ -3,6 +3,8 @@ package src.main.java.crawler.infrastructure;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import src.main.java.crawler.ReadDatabase;
 import src.main.java.crawler.domain.*;
 
 public class ArticleRepository {
@@ -13,7 +15,7 @@ public class ArticleRepository {
         this.connection = c;
     }
 
-    public void save(Article article) {
+    public void save(Article article, ReadDatabase readDatabase) {
         if (compareGuids(article)) {
             try {
                 Statement stmt = connection.createStatement();
@@ -22,6 +24,7 @@ public class ArticleRepository {
                         + article.getPubDate() + "', '" + article.getDescription() + "')";
                 stmt.executeUpdate(sql);
                 stmt.close();
+                readDatabase.dataReader();
             } catch (Exception e) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
                 System.exit(0);

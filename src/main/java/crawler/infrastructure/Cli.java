@@ -1,49 +1,21 @@
 package src.main.java.crawler.infrastructure;
 
-import java.util.List;
-
-import src.main.java.crawler.domain.Article;
-import src.main.java.crawler.domain.ArticleUsecase;
-
 public class Cli {
 
-    private final ArticleUsecase articleUsecase;
-
-    public Cli(ArticleUsecase articleUsecase){
-        this.articleUsecase = articleUsecase;
+    public Cli(String[] args) {
     }
 
-    public Cli(){
-        this.articleUsecase = null;
-    }
-
-    public String handleInput(String args[]) {
+    public String[] handleInput(String args[]) {
         if (args.length == 0) {
-            return "Please enter valid arguments! Formula: command [Category] [Amount]";
-        } else if (args.length > 2) {
-            return "Please enter 2 arguments maximum! Formula: command [Category] [Amount]";
+            return new String[] {"Please enter valid arguments! Formula: docker run [Host] [User] [Password]"};
+        } else if (args.length < 3) {
+            return new String[] { "Please enter 3 arguments! Formula: docker run [Host] [User] [Password]"};
         } else {
-            String category = args[0];
-            int maxAmount = articleAmount(args);
-            List<Article> articles = articleUsecase.getArticlesOfCategory(category, maxAmount);
-            String articleStr = "\n";
-            int counter = 1;
-            if(articles.size() == 0){
-                return "Please enter a valid category!";
-            }
-            for(Article article : articles){
-                articleStr += counter + ": " + article + "\n";
-                counter++;
-            }
-            return "Searching for articles with the category: " + category + "!" + articleStr;
+            String host = args[0];
+            String user = args[1];
+            String password = args[2];
+            String database = "weltstore";
+            return new String[] { host, user, password, database };
         }
-    }
-
-    private int articleAmount(String args[]) {
-        int articleAmount = 1;
-        if (args.length == 2) {
-            articleAmount = Integer.parseInt(args[1]);
-        }
-        return articleAmount;
     }
 }

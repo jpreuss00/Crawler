@@ -26,6 +26,6 @@ public class ExecuteTimer {
                     storageUsecase.fetchAndSave(category, 30);
                 }
             }
-        }, TimeUnit.MINUTES.toMillis(5), TimeUnit.MINUTES.toMillis(5));
+        }, 3000, TimeUnit.MINUTES.toMillis(5));
     }
 }

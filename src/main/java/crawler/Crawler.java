@@ -21,7 +21,8 @@ public class Crawler {
         Connection connection = postgreSQLJDBC.connection(host, user, password, database);
         ArticleRepository articleRepository = new ArticleRepository(connection);
         ArticleUsecase articleUsecase = new ArticleUsecase(rssReader);
-        StorageUsecase storageUsecase = new StorageUsecase(articleUsecase, articleRepository);
+        ReadDatabase readDatabase = new ReadDatabase(connection);
+        StorageUsecase storageUsecase = new StorageUsecase(articleUsecase, articleRepository, readDatabase);
 
         ExecuteTimer executeTimer = new ExecuteTimer();
         executeTimer.timing(storageUsecase);

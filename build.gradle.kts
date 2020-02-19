@@ -5,7 +5,7 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * User Manual available at https://docs.gradle.org/6.1.1/userguide/tutorial_java_projects.html
  */
-import org.gradle.jvm.tasks.Jar
+
 plugins {
     // Apply the java plugin to add support for Java
     java
@@ -48,22 +48,11 @@ tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = "src.main.java.crawler.Crawler"
     }
-}
 
-
-val fatJar = task("fatJar", type = Jar::class) {
-    baseName = "${project.name}-fat"
-    // manifest Main-Class attribute is optional.
-    // (Used only to provide default main class for executable jar)
-    manifest {
-        attributes["Main-Class"] = "src.main.java.crawler.Crawler"
-    }
-    from(configurations.runtime.get().map({ if (it.isDirectory) it else zipTree(it) }))
-    with(tasks["jar"] as CopySpec)
-}
-
-tasks {
-    "build" {
-        dependsOn(fatJar)
-    }
+	from(sourceSets.main.get().output)
+    dependsOn(configurations.runtimeClasspath)
+    from({
+    	configurations.runtimeClasspath.get().filter {
+    		it.name.endsWith("jar") }.map { zipTree(it) }
+	})
 }
