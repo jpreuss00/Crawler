@@ -9,7 +9,7 @@ public class PostgreSQLJDBC {
       try {
          Class.forName("org.postgresql.Driver");
          c = DriverManager
-            .getConnection("jdbc:postgresql://" + host + ":5432/" + database + "", "" + user + "", "" + password + "");
+            .getConnection("jdbc:postgresql://" + host + ":5432/" + database + "?user=" + user + "&password=" + password);
         return c;
       } catch (Exception e) {
          e.printStackTrace();

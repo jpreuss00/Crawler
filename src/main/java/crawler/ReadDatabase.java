@@ -17,9 +17,10 @@ public class ReadDatabase {
             Statement stmt = connection.createStatement();
             String sql = "SELECT title FROM articles WHERE pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 1";
             ResultSet result = stmt.executeQuery(sql);
-            result.next();
-            String resultString = result.getString(1);
-            System.out.println("Der neueste Beitrag handelt von: '" + resultString + "'");
+            if (result.next() == true) {
+                String resultString = result.getString(1);
+                System.out.println("Der neueste Beitrag handelt von: '" + resultString + "'");
+            }
             stmt.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());

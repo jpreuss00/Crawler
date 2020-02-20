@@ -14,7 +14,7 @@ public class Crawler {
         String host = System.getenv("DBHOST");
         String user = System.getenv("DBUSER");
         String password = System.getenv("DBPWD");
-        String database = "weltstore";
+        String database = System.getenv("DB");
 
         RssfeedReader rssReader = new RssfeedReader();
         PostgreSQLJDBC postgreSQLJDBC = new PostgreSQLJDBC();
