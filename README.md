@@ -18,7 +18,7 @@ Displays the Welt RSS Feed categorized and saved in a postgres Database.
 3: Connect to your Postgres Database:
 * psql -h localhost -U postgres -d postgres
 OR
-open it in your webbrowser with PG Admin 4 or your IDE
+* open it in your webbrowser with PG Admin 4 or your IDE
 
 4: Create the Database and the table:
 * CREATE TABLE articles (guid int, category varchar, title varchar, description varchar, pubdate timestamp)
