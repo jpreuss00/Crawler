@@ -13,7 +13,7 @@ Displays the Welt RSS Feed categorized and saved in a postgres Database.
 * docker run -p 5432:5432 -e POSTGRES_PASSWORD="choose a password" -d postgres
 
 2: Start your application:
-* docker run --env DBHOST="IP adress of your Docker Container" --env DBUSER=postgres --env DBPWD="your choosen password" -d "Image name"
+* docker run --env DBHOST="IP adress of your Docker Container" --env DBUSER=postgres --env DBPWD="your choosen password" --env DB="your database name" -d "Image name"
 
 3: Connect to your Postgres Database:
 * psql -h localhost -U postgres -d postgres
