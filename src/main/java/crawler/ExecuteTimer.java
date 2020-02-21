@@ -16,6 +16,7 @@ public class ExecuteTimer {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                System.out.println("Searching for new articles... [" + java.time.LocalDate.now() + " - " + java.time.LocalTime.now() + "]");
                 ArrayList<String> categories = new ArrayList<String>(
                         Arrays.asList("latest", "topnews", "section/mediathek", "section/videos", "section/politik",
                                 "section/wirtschaft", "section/wirtschaft/bilanz", "section/finanzen",

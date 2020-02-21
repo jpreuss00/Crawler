@@ -15,10 +15,15 @@ public class Crawler {
         String user = System.getenv("DBUSER");
         String password = System.getenv("DBPWD");
         String database = System.getenv("DB");
-
+        if(host == null || host.isEmpty() || user == null || user.isEmpty() || password == null || password.isEmpty() || database == null || database.isEmpty()){
+            System.err.println("Missing envrionment variables");
+            System.exit(1);
+        }
+        System.out.printf("Starting app with host: %s, user: %s, database: %s \n",host,user,database);
         RssfeedReader rssReader = new RssfeedReader();
-        PostgreSQLJDBC postgreSQLJDBC = new PostgreSQLJDBC();
-        Connection connection = postgreSQLJDBC.connection(host, user, password, database);
+        PostgreSQLJDBC postgreSQLJDBC = new PostgreSQLJDBC(host, user, password, database);
+        postgreSQLJDBC.initDatabase();
+        Connection connection = postgreSQLJDBC.connect();
         ArticleRepository articleRepository = new ArticleRepository(connection);
         ArticleUsecase articleUsecase = new ArticleUsecase(rssReader);
         ReadDatabase readDatabase = new ReadDatabase(connection);
