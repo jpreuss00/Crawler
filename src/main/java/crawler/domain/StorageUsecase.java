@@ -1,9 +1,9 @@
-package src.main.java.crawler.domain;
+package crawler.domain;
 
 import java.util.List;
 
-import src.main.java.crawler.ReadDatabase;
-import src.main.java.crawler.infrastructure.ArticleRepository;
+import crawler.ReadDatabase;
+import crawler.infrastructure.ArticleRepository;
 
 public class StorageUsecase {
 

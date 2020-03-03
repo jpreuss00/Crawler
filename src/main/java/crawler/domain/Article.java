@@ -1,4 +1,4 @@
-package src.main.java.crawler.domain;
+package crawler.domain;
 
 public class Article {
 

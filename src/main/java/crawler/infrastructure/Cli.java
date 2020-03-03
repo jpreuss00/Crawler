@@ -1,4 +1,4 @@
-package src.main.java.crawler.infrastructure;
+package crawler.infrastructure;
 
 public class Cli {
 

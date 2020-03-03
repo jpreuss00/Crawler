@@ -1,6 +1,6 @@
-package src.main.java.crawler.infrastructure;
+package crawler.infrastructure;
 
-import src.main.java.crawler.domain.Article;
+import crawler.domain.Article;
 import java.util.*;
 
 public interface IRssReader{

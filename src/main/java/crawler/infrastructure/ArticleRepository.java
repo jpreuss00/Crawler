@@ -1,11 +1,11 @@
-package src.main.java.crawler.infrastructure;
+package crawler.infrastructure;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import src.main.java.crawler.ReadDatabase;
-import src.main.java.crawler.domain.*;
+import crawler.ReadDatabase;
+import crawler.domain.*;
 
 public class ArticleRepository {
 

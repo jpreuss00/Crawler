@@ -6,3 +6,4 @@ build
 executeSlave.sh
 crawler.jar
 .DS_Store
+.idea

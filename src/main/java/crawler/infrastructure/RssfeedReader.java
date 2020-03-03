@@ -1,4 +1,4 @@
-package src.main.java.crawler.infrastructure;
+package crawler.infrastructure;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.w3c.dom.Node;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import src.main.java.crawler.domain.Article;
+import crawler.domain.Article;
 
 public class RssfeedReader implements IRssReader {
 

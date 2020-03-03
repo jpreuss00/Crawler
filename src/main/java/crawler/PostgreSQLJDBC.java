@@ -1,4 +1,4 @@
-package src.main.java.crawler;
+package crawler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

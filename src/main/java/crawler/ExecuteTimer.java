@@ -1,4 +1,4 @@
-package src.main.java.crawler;
+package crawler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,7 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import src.main.java.crawler.domain.StorageUsecase;
+import crawler.domain.StorageUsecase;
 
 public class ExecuteTimer {
     public void timing(StorageUsecase storageUsecase) {

@@ -28,11 +28,15 @@ dependencies {
     testImplementation("junit:junit:4.12")
     
     implementation("org.postgresql:postgresql:42.2.10")
+
+    implementation("org.eclipse.jetty:jetty-util-ajax:9.4.27.v20200227")
+
+    implementation("org.eclipse.jetty:jetty-server:9.4.26.v20200117")
 }
 
 application {
     // Define the main class for the application.
-    mainClassName = "src.main.java.crawler.Crawler"
+    mainClassName = "crawler.Crawler"
 }
 
 java {
@@ -46,7 +50,7 @@ tasks.withType<JavaCompile> {
 
 tasks.withType<Jar> {
     manifest {
-        attributes["Main-Class"] = "src.main.java.crawler.Crawler"
+        attributes["Main-Class"] = "crawler.Crawler"
     }
 
 	from(sourceSets.main.get().output)

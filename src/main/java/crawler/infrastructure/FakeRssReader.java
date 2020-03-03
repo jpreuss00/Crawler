@@ -1,9 +1,9 @@
-package src.main.java.crawler.infrastructure;
+package crawler.infrastructure;
 
 import java.util.List;
 import java.util.ArrayList;
 
-import src.main.java.crawler.domain.Article;
+import crawler.domain.Article;
 
 public class FakeRssReader implements IRssReader {
 

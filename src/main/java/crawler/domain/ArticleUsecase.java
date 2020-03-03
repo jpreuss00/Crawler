@@ -1,8 +1,8 @@
-package src.main.java.crawler.domain;
+package crawler.domain;
 
 import java.util.List;
 
-import src.main.java.crawler.infrastructure.IRssReader;
+import crawler.infrastructure.IRssReader;
 
 public class ArticleUsecase {
 
