@@ -19,6 +19,13 @@ Displays the Welt RSS Feed categorized and saved in a postgres Database.
 * psql -h localhost -U postgres -d postgres
 * or open it in your webbrowser with PG Admin 4 or your common IDE
 
+## Links
+
+https://thawing-ridge-63424.herokuapp.com/
+http://thawing-ridge-63424.herokuapp.com/health/
+http://thawing-ridge-63424.herokuapp.com/api/pingpong/ (?echo=...)
+http://thawing-ridge-63424.herokuapp.com/api/search/
+
 ## Authors
 
 * **Joshua Preuß** - *Initial work* - [jpreuss00](https://github.com/jpreuss00)
