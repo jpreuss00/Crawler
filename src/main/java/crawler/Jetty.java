@@ -79,7 +79,11 @@ public class Jetty {
                         @Override
                         public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
                                 ReadDatabase readDatabase = new ReadDatabase(connection);
-                                List<Article> articles = readDatabase.articleReader();
+                                String category = "";
+                                if(request.getParameter("category") != null){
+                                        category = request.getParameter("category");
+                                }
+                                List<Article> articles = readDatabase.articleReader(category);
                                 for (Article article : articles){
                                         JSONObject json = new JSONObject(article);
                                         response.getWriter().print(json);

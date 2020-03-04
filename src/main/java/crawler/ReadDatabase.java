@@ -33,11 +33,18 @@ public class ReadDatabase {
         return "";
     }
 
-    public List<Article> articleReader(){
+    public List<Article> articleReader(String categorySearch){
         try {
             List<Article> articles = new ArrayList<>();
             Statement stmt = connection.createStatement();
-            String sql = "SELECT * FROM articles WHERE pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 10";
+            String sql = "";
+            if(categorySearch.isEmpty()){
+                sql = "SELECT * FROM articles WHERE pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 10";
+                System.out.println("normalSearch: " + categorySearch);
+            } else {
+                sql = "SELECT * FROM articles WHERE category = '" + categorySearch + "' AND pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 10";
+                System.out.println("categorySearch: " + categorySearch);
+            }
             ResultSet result = stmt.executeQuery(sql);
             for(int i = 0; i < 10; i++){
                 result.next();
