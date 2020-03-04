@@ -80,10 +80,16 @@ public class Jetty {
                         public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
                                 ReadDatabase readDatabase = new ReadDatabase(connection);
                                 String category = "";
+                                String term = "";
                                 if(request.getParameter("category") != null){
                                         category = request.getParameter("category");
                                 }
-                                List<Article> articles = readDatabase.articleReader(category);
+                                System.out.println(category);
+                                if(request.getParameter("term") != null){
+                                        term = request.getParameter("term");
+                                }
+                                System.out.println(term);
+                                List<Article> articles = readDatabase.articleReader(category, term);
                                 for (Article article : articles){
                                         JSONObject json = new JSONObject(article);
                                         response.getWriter().print(json);
