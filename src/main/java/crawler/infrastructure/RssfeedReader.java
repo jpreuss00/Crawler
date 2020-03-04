@@ -39,6 +39,7 @@ public class RssfeedReader implements IRssReader {
                 String pubDate = nodePubDate.getTextContent();
                 final Node nodeDescription = doc.getElementsByTagName("description").item(i + 1);
                 String description = nodeDescription.getTextContent();
+                description = description.replace("'", "j");
 
                 if (guid != 0) {
                     Article article = new Article(title, category, guid, pubDate, description);
