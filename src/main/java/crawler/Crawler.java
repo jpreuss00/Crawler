@@ -46,7 +46,7 @@ public class Crawler {
         ExecuteTimer executeTimer = new ExecuteTimer();
         executeTimer.timing(storageUsecase);
 
-        Jetty jetty = new Jetty();
+        Jetty jetty = new Jetty(connection);
         jetty.startJetty();
     }
 }
