@@ -21,10 +21,10 @@ Displays the Welt RSS Feed categorized and saved in a postgres Database.
 
 ## Links
 
-https://thawing-ridge-63424.herokuapp.com/
-http://thawing-ridge-63424.herokuapp.com/health/
-http://thawing-ridge-63424.herokuapp.com/api/pingpong/ (?echo=...)
-http://thawing-ridge-63424.herokuapp.com/api/search/
+* https://thawing-ridge-63424.herokuapp.com/
+* http://thawing-ridge-63424.herokuapp.com/health/
+* http://thawing-ridge-63424.herokuapp.com/api/pingpong/ (?echo=...)
+* http://thawing-ridge-63424.herokuapp.com/api/search/
 
 ## Authors
 
