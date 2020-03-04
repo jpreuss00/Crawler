@@ -79,9 +79,12 @@ public class Jetty {
                         @Override
                         public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
                                 ReadDatabase readDatabase = new ReadDatabase(connection);
-                                Article article = readDatabase.articleReader();
-                                JSONObject json = new JSONObject(article);
-                                response.getWriter().print(json);
+                                List<Article> articles = readDatabase.articleReader();
+                                for (Article article : articles){
+                                        JSONObject json = new JSONObject(article);
+                                        response.getWriter().print(json);
+                                        response.getWriter().print("\n\n");
+                                }
                                 baseRequest.setHandled(true);
                                 System.out.println("search page is running...");
                         }

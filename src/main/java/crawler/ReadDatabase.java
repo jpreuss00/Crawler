@@ -33,20 +33,20 @@ public class ReadDatabase {
         return "";
     }
 
-    public Article articleReader(){
+    public List<Article> articleReader(){
         try {
-
+            List<Article> articles = new ArrayList<>();
             Statement stmt = connection.createStatement();
             String sql = "SELECT * FROM articles WHERE pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 10";
             ResultSet result = stmt.executeQuery(sql);
             for(int i = 0; i < 10; i++){
+                result.next();
                 int guid = 0;
                 String category = "";
                 String title = "";
                 String description = "";
                 String pubDate = "";
                 for(int j = 1; j < 6; j++){
-                    result.next();
                     String resultString = result.getString(j);
 
                     switch (j){
@@ -68,8 +68,9 @@ public class ReadDatabase {
                     }
                 }
                 Article article = new Article(title, category, guid, pubDate, description);
-                return article;
+                articles.add(article);
             }
+            return articles;
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
