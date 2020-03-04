@@ -43,10 +43,10 @@ public class Crawler {
         ReadDatabase readDatabase = new ReadDatabase(connection);
         StorageUsecase storageUsecase = new StorageUsecase(articleUsecase, articleRepository, readDatabase);
 
-        Jetty jetty = new Jetty();
-        jetty.startJetty();
-
         ExecuteTimer executeTimer = new ExecuteTimer();
         executeTimer.timing(storageUsecase);
+
+        Jetty jetty = new Jetty();
+        jetty.startJetty();
     }
 }
