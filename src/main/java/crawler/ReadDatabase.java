@@ -42,13 +42,13 @@ public class ReadDatabase {
                 sql = "SELECT * FROM articles WHERE pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 10";
                 System.out.println("normalSearch: " + categorySearch + ", " + termSearch);
             } else if(!categorySearch.isEmpty() && termSearch.isEmpty()){
-                sql = "SELECT * FROM articles WHERE category = '" + categorySearch + "' AND pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 10";
+                sql = "SELECT * FROM articles WHERE category LIKE '%" + categorySearch + "%' AND pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 10";
                 System.out.println("categorySearch: " + categorySearch + ", " + termSearch);
             } else if (categorySearch.isEmpty() && !termSearch.isEmpty()){
                 sql = "SELECT * FROM articles WHERE pubdate <= CURRENT_TIMESTAMP AND title LIKE '%" + termSearch + "%' OR description LIKE '%" + termSearch + "%' ORDER BY pubdate DESC LIMIT 10";
                 System.out.println("termSearch: " + categorySearch + ", " + termSearch);
             } else if (!categorySearch.isEmpty() && !termSearch.isEmpty()){
-                sql = "SELECT * FROM articles WHERE category = '" + categorySearch + "' AND pubdate <= CURRENT_TIMESTAMP AND (title LIKE '%" + termSearch + "%' OR description LIKE '%" + termSearch + "%') ORDER BY pubdate DESC LIMIT 10";
+                sql = "SELECT * FROM articles WHERE category LIKE '%" + categorySearch + "%' AND pubdate <= CURRENT_TIMESTAMP AND (title LIKE '%" + termSearch + "%' OR description LIKE '%" + termSearch + "%') ORDER BY pubdate DESC LIMIT 10";
                 System.out.println("bothSearch: " + categorySearch + ", " + termSearch);
                 System.out.println(sql);
             }
