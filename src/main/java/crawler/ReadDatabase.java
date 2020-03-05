@@ -3,6 +3,7 @@ package crawler;
 import crawler.domain.Article;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -36,24 +37,33 @@ public class ReadDatabase {
     public List<Article> articleReader(String categorySearch, String termSearch){
         try {
             List<Article> articles = new ArrayList<>();
-            Statement stmt = connection.createStatement();
-            String sql = "";
+            PreparedStatement preparedStatement = null;
+            String query = "";
             if(categorySearch.isEmpty() && termSearch.isEmpty()){
-                sql = "SELECT * FROM articles WHERE pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 10";
+                query = "SELECT * FROM articles WHERE pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 10";
+                preparedStatement = connection.prepareStatement(query);
                 System.out.println("normalSearch: " + categorySearch + ", " + termSearch);
             } else if(!categorySearch.isEmpty() && termSearch.isEmpty()){
-                sql = "SELECT * FROM articles WHERE category LIKE '%" + categorySearch + "%' AND pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 10";
+                query = "SELECT * FROM articles WHERE category LIKE ? AND pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 10";
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, "%" + categorySearch + "%");
                 System.out.println("categorySearch: " + categorySearch + ", " + termSearch);
             } else if (categorySearch.isEmpty() && !termSearch.isEmpty()){
-                sql = "SELECT * FROM articles WHERE pubdate <= CURRENT_TIMESTAMP AND title LIKE '%" + termSearch + "%' OR description LIKE '%" + termSearch + "%' ORDER BY pubdate DESC LIMIT 10";
+                query = "SELECT * FROM articles WHERE pubdate <= CURRENT_TIMESTAMP AND (title LIKE ? OR description LIKE ?) ORDER BY pubdate DESC LIMIT 10";
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, "%" + termSearch + "%");
+                preparedStatement.setString(2, "%" + termSearch + "%");
                 System.out.println("termSearch: " + categorySearch + ", " + termSearch);
             } else if (!categorySearch.isEmpty() && !termSearch.isEmpty()){
-                sql = "SELECT * FROM articles WHERE category LIKE '%" + categorySearch + "%' AND pubdate <= CURRENT_TIMESTAMP AND (title LIKE '%" + termSearch + "%' OR description LIKE '%" + termSearch + "%') ORDER BY pubdate DESC LIMIT 10";
+                query = "SELECT * FROM articles WHERE category LIKE ? AND pubdate <= CURRENT_TIMESTAMP AND (title LIKE ? OR description LIKE ?) ORDER BY pubdate DESC LIMIT 10";
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, "%" + categorySearch + "%");
+                preparedStatement.setString(2, "%" + termSearch + "%");
+                preparedStatement.setString(3, "%" + termSearch + "%");
                 System.out.println("bothSearch: " + categorySearch + ", " + termSearch);
-                System.out.println(sql);
+                System.out.println(preparedStatement);
             }
-            ResultSet result = stmt.executeQuery(sql);
-
+            ResultSet result = preparedStatement.executeQuery();
             for(int i = 0; i < 10; i++){
                 if(result.next()){
                     int guid = 0;

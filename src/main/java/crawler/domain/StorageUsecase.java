@@ -21,6 +21,6 @@ public class StorageUsecase {
         List<Article> articlelist = articleUsecase.getArticlesOfCategory(category, 30);
         for ( Article article : articlelist) {
            articleRepository.save(article, readDatabase);
-        };
+        }
     }
 }

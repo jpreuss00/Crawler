@@ -37,11 +37,7 @@ public class ArticleRepository {
             Statement stmt = connection.createStatement();
             String guidSorter = "SELECT guid FROM articles WHERE guid = " + article.getGuid() + "";
             ResultSet resultGuid = stmt.executeQuery(guidSorter);
-            if(!resultGuid.isBeforeFirst()){
-                return true;
-            } else {
-                return false;
-            }
+            return !resultGuid.isBeforeFirst();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);

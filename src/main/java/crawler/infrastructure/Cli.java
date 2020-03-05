@@ -5,7 +5,7 @@ public class Cli {
     public Cli(String[] args) {
     }
 
-    public String[] handleInput(String args[]) {
+    public String[] handleInput(String[] args) {
         if (args.length == 0) {
             return new String[] {"Please enter valid arguments! Formula: docker run [Host] [User] [Password]"};
         } else if (args.length < 3) {
