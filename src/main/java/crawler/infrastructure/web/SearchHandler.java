@@ -17,9 +17,11 @@ import java.util.List;
 public class SearchHandler extends AbstractHandler {
 
     private final Connection connection;
+    private final Authorization authorization;
 
-    public SearchHandler(Connection connection) {
+    public SearchHandler(Connection connection, Authorization authorization) {
         this.connection = connection;
+        this.authorization = authorization;
     }
 
     @Override
@@ -32,7 +34,7 @@ public class SearchHandler extends AbstractHandler {
             return;
         }
 
-        if (authorization(request.getHeader("Authorization"))) {
+        if (authorization.authorize(connection, (request.getHeader("Authorization")))) {
 
             ReadDatabase readDatabase = new ReadDatabase(connection);
 
@@ -73,14 +75,4 @@ public class SearchHandler extends AbstractHandler {
         System.out.println("search page is running...");
     };
 
-    private boolean authorization(String authorization) {
-        if (authorization == null) {
-            return false;
-        } else if (authorization.isEmpty()) {
-            return false;
-        } else if (authorization.equals("Basic Sm9zaHVhOlRlc3Q=")) {
-            return true;
-        }
-        return false;
-    }
 }

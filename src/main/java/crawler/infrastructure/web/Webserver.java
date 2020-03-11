@@ -9,9 +9,11 @@ import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 public class Webserver {
 
     private final Connection connection;
+    private final Authorization authorization;
 
-    public Webserver(Connection connection) {
+    public Webserver(Connection connection, Authorization authorization) {
         this.connection = connection;
+        this.authorization = authorization;
     }
 
     public void startJetty() throws Exception {
@@ -25,7 +27,7 @@ public class Webserver {
 
         health.setHandler(new HealthHandler());
         pingPong.setHandler(new PingPongHandler());
-        search.setHandler(new SearchHandler(connection));
+        search.setHandler(new SearchHandler(connection, authorization));
 
         ContextHandlerCollection contexts = new ContextHandlerCollection(health, pingPong, search);
 

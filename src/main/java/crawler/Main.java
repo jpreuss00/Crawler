@@ -8,6 +8,7 @@ import crawler.infrastructure.ArticleRepository;
 import crawler.infrastructure.RssfeedReader;
 import crawler.infrastructure.database.PostgreSQLJDBC;
 import crawler.infrastructure.database.ReadDatabase;
+import crawler.infrastructure.web.Authorization;
 import crawler.infrastructure.web.Webserver;
 
 public class Main {
@@ -49,7 +50,8 @@ public class Main {
         ExecuteTimer executeTimer = new ExecuteTimer();
         executeTimer.timing(storageUsecase);
 
-        Webserver webserver = new Webserver(connection);
+        Authorization authorization = new Authorization();
+        Webserver webserver = new Webserver(connection, authorization);
         webserver.startJetty();
     }
 }
