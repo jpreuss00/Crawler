@@ -2,10 +2,9 @@ package crawler.infrastructure.database;
 
 import crawler.domain.Article;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,6 @@ public class ReadDatabase {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT title FROM articles WHERE pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 1");
             ResultSet result = preparedStatement.executeQuery();
-            preparedStatement.close();
             if (result.next()) {
                 String resultString = result.getString(1);
                 System.out.println("Der neueste Beitrag handelt von: '" + resultString + "'");
@@ -37,7 +35,7 @@ public class ReadDatabase {
         try {
             List<Article> articles = new ArrayList<>();
 
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM articles   ORDER BY pubdate DESC LIMIT ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM articles WHERE category LIKE ? AND pubdate <= CURRENT_TIMESTAMP AND (title LIKE ? OR description LIKE ?) ORDER BY pubdate DESC LIMIT ?");
             preparedStatement.setString(1, "%" + categorySearch + "%");
             preparedStatement.setString(2, "%" + termSearch + "%");
             preparedStatement.setString(3, "%" + termSearch + "%");
@@ -45,7 +43,6 @@ public class ReadDatabase {
             System.out.println("Search: " + categorySearch + ", " + termSearch);
             System.out.println(preparedStatement);
             ResultSet result = preparedStatement.executeQuery();
-            preparedStatement.close();
             for (int i = 0; i < limit; i++) {
                 if (result.next()) {
                     int guid = 0;
