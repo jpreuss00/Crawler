@@ -53,7 +53,8 @@ public class ReadDatabase {
                     String title = "";
                     String description = "";
                     String pubDate = "";
-                    for (int j = 1; j < 6; j++) {
+                    String link = "";
+                    for (int j = 1; j < 7; j++) {
                         String resultString = result.getString(j);
 
                         switch (j) {
@@ -72,9 +73,12 @@ public class ReadDatabase {
                             case 5:
                                 pubDate = resultString;
                                 break;
+                            case 6:
+                                link = resultString;
+                                break;
                         }
                     }
-                    Article article = new Article(title, category, guid, pubDate, description);
+                    Article article = new Article(title, category, guid, pubDate, description, link);
                     articles.add(article);
                 } else {
                     break;

@@ -41,10 +41,11 @@ public class RssfeedReader implements IRssReader {
                 title = title.replace("'", "");
                 description = description.replace("-", " ");
                 title = title.replace("-", " ");
-
+                final Node nodeLink = doc.getElementsByTagName("link").item(i + 2);
+                String link = nodeLink.getTextContent();
 
                 if (guid != 0) {
-                    Article article = new Article(title, category, guid, pubDate, description);
+                    Article article = new Article(title, category, guid, pubDate, description, link);
                     articles.add(article);
                 }
             }

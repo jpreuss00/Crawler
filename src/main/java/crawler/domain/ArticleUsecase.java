@@ -12,10 +12,6 @@ public class ArticleUsecase {
         this.reader = reader;
     }
 
-    public List<Article> getArticlesOfCategory(String category){
-        return getArticlesOfCategory(category, 20);
-    }
-
     public List<Article> getArticlesOfCategory(String category, int maxAmount){
         String urlAdress = reader.urlBuilder(category);
         return reader.fetchArticles(urlAdress, 30, category);

@@ -19,12 +19,13 @@ public class ArticleRepository {
     public void save(Article article, ReadDatabase readDatabase) {
         if (compareGuids(article)) {
             try {
-                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO articles (Guid, Category, Title, pubdate, description)" + "VALUES (?, ?, ?, ?, ?)");
+                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO articles (Guid, Category, Title, pubdate, description, link)" + "VALUES (?, ?, ?, ?, ?, ?)");
                 preparedStatement.setInt(1, article.getGuid());
                 preparedStatement.setString(2, article.getCategory());
                 preparedStatement.setString(3, article.getTitle());
                 preparedStatement.setString(4, article.getPubDate());
                 preparedStatement.setString(5, article.getDescription());
+                preparedStatement.setString(6, article.getLink());
                 preparedStatement.executeUpdate();
                 readDatabase.dataReader();
             } catch (Exception e) {

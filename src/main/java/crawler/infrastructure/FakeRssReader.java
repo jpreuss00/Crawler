@@ -12,7 +12,7 @@ public class FakeRssReader implements IRssReader {
         List<Article> articles = new ArrayList<Article>();
 
         for(int i = 0; i < 30; i++){
-            Article article = new Article("sdasf", "aew", 7, "dfg", "325-534");
+            Article article = new Article("sdasf", "aew", 7, "dfg", "325-534", "www.test.com");
             articles.add(article);
         }
         return articles;
