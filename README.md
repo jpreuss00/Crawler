@@ -1,6 +1,8 @@
 # Crawler
 
-Displays the Welt RSS Feed categorized and saved in a postgres Database.
+Categorizes the Welt RSS Feed and saves it in a postgres Database.
+
+Backend for https://github.com/jpreuss00/newsPaperApp
 
 ## Built With
 
