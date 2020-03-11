@@ -1,6 +1,7 @@
 package crawler.infrastructure;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -18,12 +19,13 @@ public class ArticleRepository {
     public void save(Article article, ReadDatabase readDatabase) {
         if (compareGuids(article)) {
             try {
-                Statement stmt = connection.createStatement();
-                String sql = "INSERT INTO articles (Guid, Category, Title, pubdate, description)" + "VALUES ("
-                        + article.getGuid() + ", '" + article.getCategory() + "', '" + article.getTitle() + "', '"
-                        + article.getPubDate() + "', '" + article.getDescription() + "')";
-                stmt.executeUpdate(sql);
-                stmt.close();
+                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO articles (Guid, Category, Title, pubdate, description)" + "VALUES (?, ?, ?, ?, ?)");
+                preparedStatement.setInt(1, article.getGuid());
+                preparedStatement.setString(2, article.getCategory());
+                preparedStatement.setString(3, article.getTitle());
+                preparedStatement.setString(4, article.getPubDate());
+                preparedStatement.setString(5, article.getDescription());
+                preparedStatement.executeUpdate();
                 readDatabase.dataReader();
             } catch (Exception e) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -34,9 +36,9 @@ public class ArticleRepository {
 
     public boolean compareGuids(Article article) {
         try {
-            Statement stmt = connection.createStatement();
-            String guidSorter = "SELECT guid FROM articles WHERE guid = " + article.getGuid() + "";
-            ResultSet resultGuid = stmt.executeQuery(guidSorter);
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT guid FROM articles WHERE guid = ? ");
+            preparedStatement.setInt(1, article.getGuid());
+            ResultSet resultGuid = preparedStatement.executeQuery();
             return !resultGuid.isBeforeFirst();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
