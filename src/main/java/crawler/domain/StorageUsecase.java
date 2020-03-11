@@ -2,7 +2,7 @@ package crawler.domain;
 
 import java.util.List;
 
-import crawler.ReadDatabase;
+import crawler.infrastructure.database.ReadDatabase;
 import crawler.infrastructure.ArticleRepository;
 
 public class StorageUsecase {

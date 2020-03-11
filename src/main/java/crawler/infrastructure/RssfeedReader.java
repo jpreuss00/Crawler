@@ -32,14 +32,16 @@ public class RssfeedReader implements IRssReader {
                 String guidAsString = nodeGuid.getTextContent();
                 if (!guidAsString.equals(null)) {
                     guid = Integer.parseInt(guidAsString);
-                } else {
-                    guid = 0;
                 }
                 final Node nodePubDate = doc.getElementsByTagName("pubDate").item(i + 1);
                 String pubDate = nodePubDate.getTextContent();
                 final Node nodeDescription = doc.getElementsByTagName("description").item(i + 1);
                 String description = nodeDescription.getTextContent();
                 description = description.replace("'", "");
+                title = title.replace("'", "");
+                description = description.replace("-", " ");
+                title = title.replace("-", " ");
+
 
                 if (guid != 0) {
                     Article article = new Article(title, category, guid, pubDate, description);

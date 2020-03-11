@@ -6,8 +6,11 @@ import crawler.domain.ArticleUsecase;
 import crawler.domain.StorageUsecase;
 import crawler.infrastructure.ArticleRepository;
 import crawler.infrastructure.RssfeedReader;
+import crawler.infrastructure.database.PostgreSQLJDBC;
+import crawler.infrastructure.database.ReadDatabase;
+import crawler.infrastructure.web.Webserver;
 
-public class Crawler {
+public class Main {
 
     public static void main(String... args) throws Exception {
         
@@ -46,7 +49,7 @@ public class Crawler {
         ExecuteTimer executeTimer = new ExecuteTimer();
         executeTimer.timing(storageUsecase);
 
-        Jetty jetty = new Jetty(connection);
-        jetty.startJetty();
+        Webserver webserver = new Webserver(connection);
+        webserver.startJetty();
     }
 }

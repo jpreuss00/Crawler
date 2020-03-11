@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import crawler.ReadDatabase;
+import crawler.infrastructure.database.ReadDatabase;
 import crawler.domain.*;
 
 public class ArticleRepository {

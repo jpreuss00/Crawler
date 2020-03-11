@@ -1,4 +1,4 @@
-package crawler;
+package crawler.infrastructure.database;
 
 import crawler.domain.Article;
 
@@ -22,7 +22,7 @@ public class ReadDatabase {
             Statement stmt = connection.createStatement();
             String sql = "SELECT title FROM articles WHERE pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 1";
             ResultSet result = stmt.executeQuery(sql);
-            if (result.next() == true) {
+            if (result.next()) {
                 String resultString = result.getString(1);
                 System.out.println("Der neueste Beitrag handelt von: '" + resultString + "'");
             }
@@ -34,47 +34,29 @@ public class ReadDatabase {
         return "";
     }
 
-    public List<Article> articleReader(String categorySearch, String termSearch){
+    public List<Article> articleReader(String categorySearch, String termSearch, int limit) {
         try {
             List<Article> articles = new ArrayList<>();
-            PreparedStatement preparedStatement = null;
-            String query = "";
-            if(categorySearch.isEmpty() && termSearch.isEmpty()){
-                query = "SELECT * FROM articles WHERE pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 10";
-                preparedStatement = connection.prepareStatement(query);
-                System.out.println("normalSearch: " + categorySearch + ", " + termSearch);
-            } else if(!categorySearch.isEmpty() && termSearch.isEmpty()){
-                query = "SELECT * FROM articles WHERE category LIKE ? AND pubdate <= CURRENT_TIMESTAMP ORDER BY pubdate DESC LIMIT 10";
-                preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, "%" + categorySearch + "%");
-                System.out.println("categorySearch: " + categorySearch + ", " + termSearch);
-            } else if (categorySearch.isEmpty() && !termSearch.isEmpty()){
-                query = "SELECT * FROM articles WHERE pubdate <= CURRENT_TIMESTAMP AND (title LIKE ? OR description LIKE ?) ORDER BY pubdate DESC LIMIT 10";
-                preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, "%" + termSearch + "%");
-                preparedStatement.setString(2, "%" + termSearch + "%");
-                System.out.println("termSearch: " + categorySearch + ", " + termSearch);
-            } else if (!categorySearch.isEmpty() && !termSearch.isEmpty()){
-                query = "SELECT * FROM articles WHERE category LIKE ? AND pubdate <= CURRENT_TIMESTAMP AND (title LIKE ? OR description LIKE ?) ORDER BY pubdate DESC LIMIT 10";
-                preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, "%" + categorySearch + "%");
-                preparedStatement.setString(2, "%" + termSearch + "%");
-                preparedStatement.setString(3, "%" + termSearch + "%");
-                System.out.println("bothSearch: " + categorySearch + ", " + termSearch);
-                System.out.println(preparedStatement);
-            }
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM articles WHERE category LIKE ? AND pubdate <= CURRENT_TIMESTAMP AND (title LIKE ? OR description LIKE ?) ORDER BY pubdate DESC LIMIT ?");
+            preparedStatement.setString(1, "%" + categorySearch + "%");
+            preparedStatement.setString(2, "%" + termSearch + "%");
+            preparedStatement.setString(3, "%" + termSearch + "%");
+            preparedStatement.setInt(4, limit);
+            System.out.println("Search: " + categorySearch + ", " + termSearch);
+            System.out.println(preparedStatement);
             ResultSet result = preparedStatement.executeQuery();
-            for(int i = 0; i < 10; i++){
-                if(result.next()){
+            for (int i = 0; i < limit; i++) {
+                if (result.next()) {
                     int guid = 0;
                     String category = "";
                     String title = "";
                     String description = "";
                     String pubDate = "";
-                    for(int j = 1; j < 6; j++){
+                    for (int j = 1; j < 6; j++) {
                         String resultString = result.getString(j);
 
-                        switch (j){
+                        switch (j) {
                             case 1:
                                 guid = Integer.parseInt(resultString);
                                 break;
