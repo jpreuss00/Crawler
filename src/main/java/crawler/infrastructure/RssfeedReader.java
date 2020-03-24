@@ -37,10 +37,6 @@ public class RssfeedReader implements IRssReader {
                 String pubDate = nodePubDate.getTextContent();
                 final Node nodeDescription = doc.getElementsByTagName("description").item(i + 1);
                 String description = nodeDescription.getTextContent();
-                description = description.replace("'", "");
-                title = title.replace("'", "");
-                description = description.replace("-", " ");
-                title = title.replace("-", " ");
                 final Node nodeLink = doc.getElementsByTagName("link").item(i + 2);
                 String link = nodeLink.getTextContent();
 
